@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой первый WebApp</title>
+    <!-- Подключаем Telegram WebApp API -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #b45b9e;
+        }
+        button {
+            padding: 10px 20px;
+            background: #0088cc;
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Привет🙈</h1>
+    <p>Узнать больше</p>
+    <button onclick="sendData()">Отправить данные боту</button>
+
+    <script>
+        // Проверяем, что WebApp инициализирован
+        const tg = window.Telegram.WebApp;
+
+        // Показываем основную кнопку интерфейса Telegram
+        tg.MainButton.text = "Закрыть";
+        tg.MainButton.show();
+        tg.MainButton.onClick(() => tg.close());
+
+        // Функция для отправки данных боту
+        function sendData() {
+            const data = { 
+                user: tg.initDataUnsafe.user?.first_name || "Аноним",
+                action: "button_clicked" 
+            };
+            tg.sendData(JSON.stringify(data)); // Отправляем данные
+            tg.close(); // Закрываем WebApp
+        }
+    </script>
+</body>
+</html>
